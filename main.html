@@ -19,6 +19,34 @@
         <button onclick="getByIndex(nodeIndex.value)">Get by Index</button>
     </div>
 
+    <div class="with-padding">
+        <input type="number" id="insertInd" />
+        <input id="insertValue" />
+        <button onclick="insert(insertInd.value, insertValue.value)">Insert</button>
+    </div>
+
+    <div class="with-padding">
+        <input type="number" id="removeAtInd" />
+        <button onclick="removeAt(removeAtInd.value)">Remove</button>
+    </div>
+
+    <div class="with-padding">
+        <input id="contValue" />
+        <button onclick="containsValue(contValue.value)">Contains</button>
+    </div>
+
+    <div class="with-padding">
+        <input id="addFirstValue" />
+        <button onclick="addFirst(addFirstValue.value)">Add first</button>
+    </div>
+
+    <div class="with-padding">
+        <button onclick="clearList()">Clear</button>
+        <button onclick="length()">Length</button>
+        <button onclick="getFirst()">First</button>
+        <button onclick="getLast()">Last</button>
+    </div>
+
 </body>
 
 </html>
