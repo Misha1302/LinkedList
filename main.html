@@ -1,17 +1,24 @@
-<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>List</title>
     <script src="main.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1 id="listH">null</h1>
-    <input id="valuesInp">
-    <br>
-    <button id="addToEnd">add to end</button>
-    <button id="getByIndex">get by index</button>
+    <div class="with-padding" id="listRoot"></div>
+
+    <div class="with-padding">
+        <input id="newNodeValue" />
+        <button onclick="addToEnd(newNodeValue.value)">Add to End</button>
+    </div>
+
+    <div class="with-padding">
+        <input type="number" id="nodeIndex" />
+        <button onclick="getByIndex(nodeIndex.value)">Get by Index</button>
+    </div>
+
 </body>
+
 </html>
