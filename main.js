@@ -2,21 +2,46 @@ window.onload = main;
 
 let list;
 let valuesInp;
-let listH;
+let listUl;
 
 function main()
 {
     valuesInp = document.getElementById('valuesInp');
-    listH = document.getElementById('listH');
+    listUl = document.getElementById('list_ul');
 
     list = new LinkedList();
-    list.onChange = 
-        () => listH.innerHTML = list.toString();
     
-    document.getElementById('addToEnd').onclick = 
-        () => list.addToEnd(valuesInp.value);
-    document.getElementById('getByIndex').onclick = 
-        () => alert(list.getByIndex(valuesInp.value).value);
+    document.getElementById('addToEnd').addEventListener('click',
+        () => {
+            if (valuesInp.value == "") return;
+
+            list.addToEnd(valuesInp.value);
+            valuesInp.value = "";
+            printList(list);
+        }
+    );
+
+    document.getElementById('getByIndex').addEventListener('click',
+        () => {
+            alert(list.getByIndex(valuesInp.value).value);
+            valuesInp.value = "";
+        }
+    );
+}
+
+function printList(list)
+{    
+    listUl.innerHTML = "";
+
+    let current = list.first;
+    for (let ind = 0; ind < list.len; ind++)
+    {
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(current.value));
+        listUl.appendChild(li);
+
+        current = current.next;
+    }
 }
 
 class LinkedList
@@ -32,14 +57,11 @@ class LinkedList
         {
             this.first = this.last = new RNode(value, null);
             this.len++;
-            this.callOnChange();
             return;
         }
 
-        this.last.next = new RNode(value, null);
-        this.last = this.last.next;
+        this.last = this.last.next = new RNode(value, null);
         this.len++;
-        this.callOnChange();
     }
 
     getByIndex(value)
@@ -50,18 +72,6 @@ class LinkedList
             current = current.next;
         }
         return current;
-    }
-
-    toString()
-    {
-        let s = "";
-        let current = this.first;
-        for (let ind = 0; ind < this.len; ind++)
-        {
-            s += String(current.value) + "->";
-            current = current.next;
-        }
-        return s.substring(0, s.length - 2);
     }
 
     getFirst = () => this.first;
