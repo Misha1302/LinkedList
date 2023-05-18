@@ -1,0 +1,23 @@
+.with-padding {
+    padding: 20px;
+}
+
+#listRoot {
+    min-height: 50px;
+}
+
+#listRoot ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+}
+
+#listRoot ul li {
+    display: inline;
+}
+
+#listRoot li:not(:first-child)::before {
+    color: red;
+    content: '->';
+}

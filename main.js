@@ -1,91 +1,87 @@
-window.onload = main;
+class LinkedList {
+    first = null
+    last = null
+    length = 0
 
-let list;
-let valuesInp;
-let listUl;
-
-function main()
-{
-    valuesInp = document.getElementById('valuesInp');
-    listUl = document.getElementById('list_ul');
-
-    list = new LinkedList();
-    
-    document.getElementById('addToEnd').addEventListener('click',
-        () => {
-            if (valuesInp.value == "") return;
-
-            list.addToEnd(valuesInp.value);
-            valuesInp.value = "";
-            printList(list);
+    addToEnd(value) {
+        if (this.length == 0) {
+            this.first = this.last = new RNode(value, null)
+            this.length++
+            return
         }
-    );
 
-    document.getElementById('getByIndex').addEventListener('click',
-        () => {
-            alert(list.getByIndex(valuesInp.value).value);
-            valuesInp.value = "";
+        this.last.next = new RNode(value, null)
+        this.last = this.last.next
+        this.length++
+    }
+
+    getByIndex(index) {
+        let current = this.first
+        for (let i = 0; i < index; i++) {
+            current = current.next
         }
-    );
+        return current
+    }
+
+    getFirst = () => this.first
+
+    getLast = () => this.first
 }
 
-function printList(list)
-{    
-    listUl.innerHTML = "";
+class RNode {
+    value
+    next
 
-    let current = list.first;
-    for (let ind = 0; ind < list.len; ind++)
-    {
-        var li = document.createElement("li");
-        li.appendChild(document.createTextNode(current.value));
-        listUl.appendChild(li);
-
-        current = current.next;
+    constructor(value, next) {
+        this.value = value
+        this.next = next
     }
 }
 
-class LinkedList
-{
-    first = null;
-    last = null;
-    len = 0;
-    onChange = null;
+const list = new LinkedList()
 
-    addToEnd(value) 
-    {
-        if (this.len == 0)
-        {
-            this.first = this.last = new RNode(value, null);
-            this.len++;
-            return;
-        }
-
-        this.last = this.last.next = new RNode(value, null);
-        this.len++;
-    }
-
-    getByIndex(value)
-    {
-        let current = this.first;
-        for (let ind = 0; ind < value; ind++)
-        {
-            current = current.next;
-        }
-        return current;
-    }
-
-    getFirst = () => this.first;
-    getLast = () => this.first;
-    callOnChange = () => { if (this.onChange != null) this.onChange(); }
+const addToEnd = (value) => {
+    list.addToEnd(value)
+    showList(list)
 }
 
-class RNode 
-{
-    value;
-    next;
+const getByIndex = (index) => { alert(list.getByIndex(index).value) }
 
-    constructor(value, next){
-        this.value = value;
-        this.next = next;
+const showList = (list) => {
+    showListAsString(list, listRoot)
+    showListAsUL(list, listRoot)
+}
+
+const showListAsString = (list, root) => root.innerText = buildStringFromList(list)
+
+const buildStringFromList = (list) => {
+    let s = ''
+    let current = list.first
+    for (let i = 0; i < list.length; i++) {
+        s += current.value
+
+        if (i < list.length - 1)
+            s += '->'
+
+        current = current.next
     }
+
+    return s
+}
+
+const showListAsUL = (list, root) => {
+    const ulTag = document.createElement("ul")
+
+    let current = list.first
+
+    for (let i = 0; i < list.length; i++) {
+        const liTag = document.createElement("li")
+        const text = document.createTextNode(current.value)
+        liTag.appendChild(text)
+        ulTag.appendChild(liTag)
+
+        current = current.next
+    }
+
+    root.appendChild(ulTag)
 }
