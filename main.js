@@ -16,6 +16,8 @@ class LinkedList {
     }
 
     getByIndex(index) {
+        this.validateIndex(index);
+
         let current = this.first
         for (let i = 0; i < index; i++) {
             current = current.next
@@ -24,29 +26,30 @@ class LinkedList {
     }
 
     insert(index, value) {
+        this.validateIndex(index);
+
         value = new RNode(value)
 
-        if (index == 0)
-        {
+        if (index == 0) {
             value.next = this.first
             this.first = value
             this.length++
             return
         }
-        
+
         value.next = this.getByIndex(index)
         this.getByIndex(index - 1).next = value
         this.length++
     }
 
     removeAt(index) {
-        if (index == 0)
-        {
+        this.validateIndex(index);
+        if (index == 0) {
             this.first = this.first.next
             this.length--
             return
         }
-        
+
         this.getByIndex(index - 1).next = this.getByIndex(index).next
         this.length--
     }
@@ -63,10 +66,17 @@ class LinkedList {
         return false
     }
 
-    clearList()
-    {
+    clearList() {
         this.first = null
+        this.last = this.first
         this.length = 0
+    }
+
+    validateIndex(index) {
+        if (index < 0)
+            throw "Index cannot be less than zero"
+        if (typeof x === "number")
+            throw "Index type must be int"
     }
 
     getFirst = () => this.first
