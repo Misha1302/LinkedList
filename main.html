@@ -16,18 +16,18 @@
 
     <div class="with-padding">
         <input type="number" id="nodeIndex" />
-        <button onclick="getByIndex(nodeIndex.value)">Get by Index</button>
+        <button onclick="getByIndex(parseFloat(nodeIndex.value))">Get by Index</button>
     </div>
 
     <div class="with-padding">
         <input type="number" id="insertInd" />
         <input id="insertValue" />
-        <button onclick="insert(insertInd.value, insertValue.value)">Insert</button>
+        <button onclick="insert(parseFloat(insertInd.value), insertValue.value)">Insert</button>
     </div>
 
     <div class="with-padding">
         <input type="number" id="removeAtInd" />
-        <button onclick="removeAt(removeAtInd.value)">Remove</button>
+        <button onclick="removeAt(parseFloat(removeAtInd.value))">Remove</button>
     </div>
 
     <div class="with-padding">

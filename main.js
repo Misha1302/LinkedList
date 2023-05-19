@@ -73,10 +73,20 @@ class LinkedList {
     }
 
     validateIndex(index) {
+        const ex = this.getException(index);
+        if (ex != "") {
+            throw ex
+        }
+    }
+
+    getException(index) {
         if (index < 0)
-            throw "Index cannot be less than zero"
-        if (typeof x === "number")
-            throw "Index type must be int"
+            return "Index cannot be less than zero"
+        if (typeof index !== "number")
+            return "Index type must be int"
+        if (index % 1 != 0)
+            return "Index type must be int"
+        return ""
     }
 
     getFirst = () => this.first
@@ -111,7 +121,7 @@ const clearList = () => {
 }
 
 const insert = (ind, value) => {
-    list.insert(ind, value)
+    alertIfException(() => list.insert(ind, value));
     showList(list)
 }
 
@@ -132,11 +142,11 @@ const containsValue = (value) => {
 }
 
 const removeAt = (ind) => {
-    list.removeAt(ind)
+    alertIfException(() => list.removeAt(ind))
     showList(list)
 }
 
-const getByIndex = (index) => { alert(list.getByIndex(index).value) }
+const getByIndex = (index) => { alert(alertIfException(() => list.getByIndex(index).value)) }
 
 const showList = (list) => {
     showListAsString(list, listRoot)
@@ -175,4 +185,15 @@ const showListAsUL = (list, root) => {
     }
 
     root.appendChild(ulTag)
+}
+
+
+const alertIfException = (lambda) => {
+    try {
+        return lambda()
+    }
+    catch (ex) {
+        alert(ex)
+        throw ex
+    }
 }
